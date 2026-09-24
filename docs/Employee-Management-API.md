@@ -19,15 +19,16 @@ The Employee Management API is a RESTful API designed to manage employee informa
 
 ## 5. Endpoint List
 
-| HTTP Method | Endpoint                 | Description                    |
-| ----------- | ------------------------ | ------------------------------ |
-| GET         | /employees               | View all employees             |
-| GET         | /employees/{id}          | View one employee              |
-| POST        | /employees               | Add an employee                |
-| PUT         | /employees/{id}          | Update employee information    |
-| DELETE      | /employees/{id}          | Delete an employee             |
-| GET         | /employees?search=juan   | Search employee by name        |
-| GET         | /employees?department=IT | Filter employees by department |
+| HTTP Method | Endpoint                   | Description                     |
+| ----------- | -------------------------- | ------------------------------- |
+| GET         | /employees                 | View all employees              |
+| GET         | /employees/{id}            | View one employee               |
+| POST        | /employees                 | Add an employee                 |
+| PUT         | /employees/{id}            | Update employee information     |
+| DELETE      | /employees/{id}            | Delete an employee              |
+| GET         | /employees?search=juan     | Search employee by name         |
+| GET         | /employees?department_id=1 | Filter employees by department  |
+| GET         | /employees?page=2          | View the next page of employees |
 
 ## 6. Sample Request Body
 
@@ -36,7 +37,7 @@ The Employee Management API is a RESTful API designed to manage employee informa
     "first_name": "Juan",
     "last_name": "Dela Cruz",
     "email": "juan@example.com",
-    "department": "IT",
+    "department_id": 1,
     "position": "Programmer"
 }
 ```
@@ -49,9 +50,13 @@ The Employee Management API is a RESTful API designed to manage employee informa
     "first_name": "Juan",
     "last_name": "Dela Cruz",
     "email": "juan@example.com",
-    "department": "IT",
     "position": "Programmer",
-    "created_at": "2026-08-04T10:00:00Z"
+    "department_id": 1,
+    "department": {
+        "id": 1,
+        "name": "IT"
+    },
+    "created_at": "2026-09-24T10:00:00Z"
 }
 ```
 
@@ -70,7 +75,7 @@ The Employee Management API is a RESTful API designed to manage employee informa
 
 ### GET /employees
 
-Returns all employees.
+Returns employees, 10 per page. Each employee includes its department.
 
 **Status:** 200 OK
 
@@ -108,9 +113,9 @@ Searches for an employee by name.
 
 **Status:** 200 OK
 
-### GET /employees?department=IT
+### GET /employees?department_id=1
 
-Returns employees belonging to the IT department.
+Returns employees whose department_id is 1 (IT).
 
 **Status:** 200 OK
 

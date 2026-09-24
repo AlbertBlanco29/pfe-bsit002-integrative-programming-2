@@ -19,11 +19,16 @@ paths:
           required: false
           schema:
             type: string
-        - name: department
+        - name: department_id
           in: query
           required: false
           schema:
-            type: string
+            type: integer
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
       responses:
         '200':
           description: Employees retrieved successfully
@@ -103,7 +108,7 @@ components:
         - first_name
         - last_name
         - email
-        - department
+        - department_id
         - position
       properties:
         first_name:
@@ -116,9 +121,9 @@ components:
           type: string
           format: email
           example: juan@example.com
-        department:
-          type: string
-          example: IT
+        department_id:
+          type: integer
+          example: 1
         position:
           type: string
           example: Programmer
@@ -139,9 +144,18 @@ components:
           type: string
           format: email
           example: juan@example.com
+        department_id:
+          type: integer
+          example: 1
         department:
-          type: string
-          example: IT
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: IT
         position:
           type: string
           example: Programmer
